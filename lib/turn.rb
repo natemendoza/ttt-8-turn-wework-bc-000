@@ -12,20 +12,17 @@ def input_to_index(input)
   input.to_i-1
 end
 
+def position_taken?(board, index)
+  board[index] != " "
+end
+
 def valid_move?(board, index)
-  if board[index] == "X" || board[index] == "O"
-    false
-  elsif index > 9 || index < 0
-    false
-  else
-    true
-  end
+  index.between?(0,8) && !position_taken?(board, index)
 end
 
 def move(board, index, token = "X")
   board[index] = token
 end
-
 
 def turn(board)
   puts "Please enter 1-9:"
@@ -33,8 +30,10 @@ def turn(board)
   index = input_to_index(input)
   validation = valid_move?(board, index)
     if validation == false
-      puts "Please enter 1-9:"
+      puts "Invalid move, please try again:"
       input = gets.strip
+    else
+      puts "Valid move."
     end
     move(board, index)
   display_board(board)
