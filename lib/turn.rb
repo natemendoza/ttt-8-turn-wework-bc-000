@@ -28,13 +28,11 @@ def turn(board)
   puts "Please enter 1-9:"
   input = gets.strip
   index = input_to_index(input)
-  validation = valid_move?(board, index)
-    if validation == false
-      puts "Invalid move, please try again:"
-      input = gets.strip
-    else
-      puts "Valid move."
-    end
+  if valid_move?(board, index)
     move(board, index)
-  display_board(board)
+    display_board(board)
+  else
+    turn(board)
+  end
 end
+
